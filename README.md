@@ -15,3 +15,6 @@ Install packages:<br>
 `npm install axios`<br>
 `npm install react-router-dom`<br>
 `npm install jwt-decode`<br>
+
+### Deployment
+Current deployment is on Choreo, but the code is now for local usage only. Deployment related code has been commented
