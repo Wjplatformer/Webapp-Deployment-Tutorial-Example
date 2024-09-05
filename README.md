@@ -1,4 +1,4 @@
-# Type shit
+# Boom
 THis is the second one as it turned out the first one couldnt work. This is an example online note-taking app
 
 ### Django
