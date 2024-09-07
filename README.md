@@ -1,5 +1,9 @@
-# Boom
-THis is the second one as it turned out the first one couldnt work. This is an example online note-taking app
+# Finesse
+A note taking webapp from a tutorial by @techwithtim. Built using React and Django.<br>
+### Improvements:
+- Added a delete user view and system
+- Custom alert messages
+- Completed with Bruno Mars's `Finesse` playing in the background
 
 ### Django
 Starting a project: `django-admin startproject [foldername]`<br>

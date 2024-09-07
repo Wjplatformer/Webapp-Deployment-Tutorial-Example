@@ -28,7 +28,7 @@ function Form({route, method}) { //route tells which route to go to either login
             }
 
         } catch (error) {
-            alert(error);
+            alert("make sure yo credentials valid bruh");
         } finally {
             setLoading(false);
         }

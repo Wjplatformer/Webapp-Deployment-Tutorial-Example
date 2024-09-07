@@ -35,3 +35,15 @@ class CreateUserView(generics.CreateAPIView):
     serializer_class = UserSerializer
     permission_classes = [AllowAny] #Allows any user to create a user
 
+class ListUser(generics.ListAPIView):
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated] #Not allowed unless passed JWT Token
+    def get_queryset(self):
+        user = self.request.user #gives the user as it is alr auth'ed
+        return User.objects.filter(username=user.username) #returns the user matched with the auth'ed user
+
+class DeleteUser(generics.DestroyAPIView):
+    permission_classes = [IsAuthenticated] #only allows delete if it is authenticated
+    queryset = User.objects.all() #destroys all of the user 
+    serializer_class = UserSerializer
+

@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 import api from '../api';
 import Note from '../components/Note'
 import '../styles/Home.css'
@@ -7,9 +8,12 @@ function Home() {
     const [notes, setNotes] = useState([]);
     const [content, setContent] = useState('');
     const [title, setTitle] = useState('');
+    const [user, setUser] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         getNotes();
+        getUsers();
     }, [])
 
     const getNotes = () => {
@@ -17,6 +21,16 @@ function Home() {
             .get('/api/notes/')
             .then((res) => res.data)
             .then((data) => {setNotes(data); console.log(data)})
+            .catch((err) => alert(err));
+            const notelog = notes.map((note) => note)
+            console.log(notelog)
+    };
+
+    const getUsers = () => {
+        api
+            .get('/api/user/')
+            .then((res) => res.data)
+            .then((data) => {setUser(data[0]['id']);}) //sets user const to be the id of the user
             .catch((err) => alert(err));
     };
 
@@ -27,6 +41,18 @@ function Home() {
                 if (res.status === 204) alert('Note Gone ma boi!');
                 else alert("My bad bro can't delete 'em");
                 getNotes();
+            })
+            .catch((error) => alert(error));
+    };
+
+    const deleteUser = (id) => {
+        console.log(id)
+        api
+            .delete(`/api/user/delete/${id}/`)
+            .then((res) => {
+                if (res.status === 204) alert('You Gone ma boi!');
+                else alert("My bad bro can't remove you from da vehicle");
+                navigate('/login');
             })
             .catch((error) => alert(error));
     };
@@ -48,7 +74,7 @@ function Home() {
             <div>
                 <h2>Ideas</h2>
                 {notes.map((note) => (
-                    <Note note={note} onDelete={deleteNote} key={note.id}/>
+                    <Note note={note} onDelete={deleteNote} key={note}/>
                 ))}
 
             </div>
@@ -73,9 +99,12 @@ function Home() {
                     value={content} 
                     onChange={(e) => setContent(e.target.value)}
                 ></textarea>
-                <br/>
+                <br/>   
                 <input type='submit' value='Submit'></input>
             </form>
+            <button className='delete-button' onClick={() => deleteUser(user)} > 
+                DELETE ACCOUNT 
+            </button> 
         </div>
   );
 }
